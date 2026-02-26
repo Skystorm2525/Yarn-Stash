@@ -515,6 +515,7 @@ def download_file(filename):
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename, as_attachment=True)
 
 
+init_db()
+
 if __name__ == "__main__":
-    init_db()
     app.run(debug=True)
