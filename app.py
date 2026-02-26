@@ -19,6 +19,60 @@ def get_db():
 
 
 # -------------------------
+# INIT DB
+# -------------------------
+def init_db():
+    conn = get_db()
+
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS yarn (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            brand_name TEXT,
+            color_name TEXT,
+            yarn_weight TEXT,
+            skeins_owned INTEGER DEFAULT 0,
+            image_filename TEXT
+        )
+    """)
+
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS projects (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            required_skeins INTEGER,
+            pattern_id INTEGER
+        )
+    """)
+
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS project_yarn (
+            project_id INTEGER,
+            yarn_id INTEGER,
+            skeins_used INTEGER
+        )
+    """)
+
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS folders (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT
+        )
+    """)
+
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS patterns (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            file_name TEXT,
+            folder_id INTEGER
+        )
+    """)
+
+    conn.commit()
+    conn.close()
+
+
+# -------------------------
 # DASHBOARD
 # -------------------------
 
@@ -462,4 +516,5 @@ def download_file(filename):
 
 
 if __name__ == "__main__":
+    init_db()
     app.run(debug=True)
