@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Patterns</h1>
+
+<div style="margin-bottom:25px;">
+
+<div class="pattern-actions">
+    <a href="/patterns/create" class="primary-btn">Add Pattern</a>
+    <a href="/folders/create" class="secondary-btn">Create Folder</a>
+</div>
+
+<div class="patterns-grid">
+
+    {% for folder in folders %}
+    <div class="pattern-card">
+        <a href="/folders/{{ folder['id'] }}" class="pattern-link">
+            <div class="pattern-image-wrapper">
+                <img src="{{ url_for('static', filename='Folder.png') }}" class="pattern-image">
+            </div>
+            <div class="pattern-name">
+                {{ folder['name'] }}
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+
+    {% for pattern in patterns %}
+    <div class="pattern-card">
+        <a href="/patterns/{{ pattern['id'] }}" class="pattern-link">
+            <div class="pattern-image-wrapper">
+                <img src="{{ url_for('static', filename='Pattern.png') }}" class="pattern-image">
+            </div>
+            <div class="pattern-name">
+                {{ pattern['name'] }}
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

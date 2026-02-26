@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="add-yarn-wrapper">
+    <div class="add-yarn-card">
+
+        <h1>Add Yarn to Stash</h1>
+
+        <form action="/add" method="POST" enctype="multipart/form-data">
+
+            <label>Brand</label>
+            <input type="text" name="brand_name" required>
+
+            <label>Color</label>
+            <input type="text" name="color_name" required>
+
+            <label>Yarn Weight</label>
+            <input type="text" name="yarn_weight" required>
+
+            <label>Skeins Owned</label>
+            <input type="number" name="skeins_owned" min="0" required>
+
+            <label>Upload Image</label>
+            <input type="file" name="image">
+
+            <div class="form-buttons">
+                <button type="submit" class="btn-primary">Add Yarn</button>
+                <a href="/yarn" class="btn-secondary">Cancel</a>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

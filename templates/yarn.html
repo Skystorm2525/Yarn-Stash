@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Yarn{% endblock %}
+
+{% block content %}
+
+
+<div class="yarn-header">
+    <h1>My Yarn Stash</h1>
+    <a href="{{ url_for('add_yarn_page') }}" class="add-stash-btn">
+        + Add to Stash
+    </a>
+</div>
+
+<form method="GET" action="/yarn" class="sort-container">
+    <label class="sort-label">Sort By:</label>
+
+    <select name="sort" class="sort-select" onchange="this.form.submit()">
+        <option value="brand" {% if current_sort == "brand" %}selected{% endif %}>
+            Brand (A → Z)
+        </option>
+
+        <option value="available" {% if current_sort == "available" %}selected{% endif %}>
+            Available (High → Low)
+        </option>
+
+        <option value="weight" {% if current_sort == "weight" %}selected{% endif %}>
+            Weight (Low → High)
+        </option>
+
+        <option value="newest" {% if current_sort == "newest" %}selected{% endif %}>
+            Newest Added
+        </option>
+    </select>
+</form>
+
+<div class="yarn-grid">
+    {% for yarn in yarn_list %}
+    <div class="yarn-card">
+
+        <div class="yarn-menu">
+            <a href="/edit/{{ yarn['id'] }}">⋮</a>
+        </div>
+
+        {% if yarn['image_filename'] %}
+            <img src="{{ url_for('uploaded_file', filename=yarn['image_filename']) }}"
+                 class="yarn-image">
+        {% else %}
+            <div class="yarn-image placeholder"></div>
+        {% endif %}
+
+        <div class="yarn-info">
+            <strong>{{ yarn['brand_name'] }} - {{ yarn['color_name'] }}</strong>
+            <p>Owned: {{ yarn['skeins_owned'] }}</p>
+            <p>Allocated: {{ yarn['allocated'] }}</p>
+            <p>Available: {{ yarn['skeins_owned'] - yarn['allocated'] }}</p>
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

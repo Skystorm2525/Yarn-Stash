@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+
+    <h1 class="dashboard-title">Yarn Dashboard</h1>
+
+    <div class="dashboard-grid">
+
+        <div class="dashboard-card">
+            <div class="dashboard-number">{{ total_skeins }}</div>
+            <div class="dashboard-label">Total Skeins Owned</div>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="dashboard-number">{{ allocated_skeins }}</div>
+            <div class="dashboard-label">Total Skeins Allocated</div>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="dashboard-number">{{ total_projects }}</div>
+            <div class="dashboard-label">Total Projects</div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

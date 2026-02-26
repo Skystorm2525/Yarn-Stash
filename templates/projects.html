@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Projects{% endblock %}
+
+{% block content %}
+
+<h1>Projects</h1>
+
+<a href="/projects/create">
+    <button>Create New Project</button>
+</a>
+
+<div class="projects-grid">
+    {% for project in projects %}
+      <a href="/projects/{{ project['id'] }}" class="project-card-link">
+          <div class="project-card">
+
+              <div class="project-image">
+                  <img src="{{ url_for('static', filename='Project.png') }}">
+              </div>
+
+              <div class="project-info">
+                  <h3>{{ project['name'] }}</h3>
+                  {% if project['pattern_name'] %}
+                      <p><strong>Pattern:</strong> {{ project['pattern_name'] }}</p>
+                  {% endif %}
+              </div>
+
+          </div>
+      </a>
+    {% endfor %}
+</div>
+
+{% endblock %}

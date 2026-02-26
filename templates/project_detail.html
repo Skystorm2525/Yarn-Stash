@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Project Details{% endblock %}
+
+{% block content %}
+
+<h1>{{ project['name'] }}</h1>
+
+<form method="POST" action="/projects/delete/{{ project['id'] }}" style="margin-top: 10px;">
+    <button type="submit" class="delete-btn">Delete Project</button>
+</form>
+
+{% if project['pattern_name'] %}
+<p><strong>Pattern:</strong> {{ project['pattern_name'] }}</p>
+{% endif %}
+
+{% if project['required_skeins'] == 0 %}
+<p style="color: gray;">
+    No required skeins set for this project.
+</p>
+{% else %}
+<p><strong>Total Required:</strong> {{ project['required_skeins'] }}</p>
+<p><strong>Total Allocated:</strong> {{ total_allocated }}</p>
+
+    {% if remaining_needed > 0 %}
+    <p style="color: red;">
+        You still need {{ remaining_needed }} more skeins.
+    </p>
+    {% else %}
+    <p style="color: green;">
+        Project fully supplied.
+    </p>
+    {% endif %}
+{% endif %}
+
+<h2>Yarn Used</h2>
+
+{% if yarn_used %}
+<ul>
+    {% for yarn in yarn_used %}
+    <li>
+        {{ yarn['brand_name'] }} -
+        {{ yarn['color_name'] }}
+        (Skeins Used: {{ yarn['skeins_used'] }})
+
+        <form method="POST" action="/projects/{{ project['id'] }}/remove_yarn/{{ yarn['yarn_id'] }}" style="display:inline;">
+            <button type="submit" class="delete-btn">Remove</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No yarn added yet.</p>
+{% endif %}
+
+<h2>Add Yarn to Project</h2>
+
+<ul>
+    {% for yarn in all_yarn %}
+    <li>
+        {{ yarn['brand_name'] }} -
+        {{ yarn['color_name'] }}
+
+        <form action="/projects/{{ project['id'] }}/add_yarn" method="POST" style="display:inline;">
+            <input type="hidden" name="yarn_id" value="{{ yarn['id'] }}">
+            <input type="number" name="skeins_used" min="1" value="1" required>
+            <button type="submit">Add</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Yarn{% endblock %}
+
+{% block content %}
+
+<h1>Edit Yarn</h1>
+
+<form action="/update/{{ yarn['id'] }}" method="POST">
+    <input type="text" name="brand" value="{{ yarn['brand_name'] }}" required>
+    <input type="text" name="color" value="{{ yarn['color_name'] }}" required>
+    <input type="number" name="skeins" value="{{ yarn['skeins_owned'] }}" required>
+    <button type="submit">Save Changes</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<h1>Yarn Dashboard</h1>
+
+<div class="dashboard-grid">
+
+    <div class="stat-card">
+        <h3>Total Skeins Owned</h3>
+        <p class="stat-number">{{ total_owned }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Total Skeins Allocated</h3>
+        <p class="stat-number">{{ total_allocated }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Total Projects</h3>
+        <p class="stat-number">{{ total_projects }}</p>
+    </div>
+
+</div>
+
+{% endblock %}
